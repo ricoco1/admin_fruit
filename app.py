@@ -35,6 +35,8 @@ def addFruit():
         harga = request.form['harga']
         deskripsi = request.form['deskripsi']
         gambar = request.files['gambar']
+        current_time = datetime.now()
+
 
         if gambar:
             namaGambarAsli = gambar.filename
@@ -49,6 +51,8 @@ def addFruit():
             'harga': harga,
             'deskripsi': deskripsi,
             'gambar': namaFileGambar,
+            'created_at': current_time,
+            'updated_at': current_time
         }
         db.fruit.insert_one(doc)
         return redirect(url_for("fruit"))
@@ -62,11 +66,14 @@ def editFruit(_id):
         harga = request.form['harga']
         deskripsi = request.form['deskripsi']
         nama_gambar = request.files['gambar']
+        current_time = datetime.now()
+
         
         doc = {
             'nama':nama,
             'harga': harga,
             'deskripsi': deskripsi,
+            'updated_at': current_time
         }
         if nama_gambar:
             namaGambarAsli = nama_gambar.filename
